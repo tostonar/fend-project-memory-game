@@ -62,11 +62,23 @@ restartButton.addEventListener('click', function(event) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-// show card ( add .show to li) on click
+// display card's symbol
+function showCard(card) {
+  card.classList.toggle('show');
+}
 
+// add card to list of open cards
+let openCards = [];
+function addCard(card) {
+  openCards.push(card);
+}
+
+// show card ( add .show to li) on click
 for (const card of cards) {
-    card.addEventListener('click', function(event) {
-      if (event.target.nodeName === 'LI') { event.target.classList.toggle('show');
+  card.addEventListener('click', function(event) {
+    if (event.target.nodeName === 'LI') {
+      showCard(event.target);
     }
+    addCard(card);
   });
 }
