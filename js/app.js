@@ -1,7 +1,10 @@
 /*
  * Create a list that holds all of your cards
  */
+const cards = document.querySelectorAll('li.card');
 
+// convert NodeList to array
+let arrayOfCards =  Array.from(cards);
 
 /*
  * Display the cards on the page
@@ -25,6 +28,24 @@ function shuffle(array) {
     return array;
 }
 
+const deck = document.querySelector('.deck');
+
+// new deck
+function createDeck() {
+  //shuffle cards
+  shuffle(arrayOfCards);
+  // clear the deck
+  deck.innerHTML = "";
+  // loop through each card and create its HTML
+  for (const item of arrayOfCards) {
+    // add each card's HTML to the page
+  	deck.appendChild(item);
+  }
+}
+
+// add createDeck() to restart button
+const restartButton = document.querySelector('.restart > i');
+restartButton.addEventListener('click', createDeck(), true);
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -36,3 +57,8 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+// show card ( add .show to li)
+for (const element of elements) {
+    element.addEventListener('click', doSomething);
+}
