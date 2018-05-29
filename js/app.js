@@ -45,7 +45,11 @@ function createDeck() {
 
 // add createDeck() to restart button
 const restartButton = document.querySelector('.restart > i');
-restartButton.addEventListener('click', createDeck(), true);
+restartButton.addEventListener('click', function(event) {
+  if (event.target.nodeName === 'I') {
+    createDeck();
+  }
+});
 
 /*
  * set up the event listener for a card. If a card is clicked:
