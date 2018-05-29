@@ -68,9 +68,23 @@ function showCard(card) {
 }
 
 // add card to list of open cards
+// TODO: problem - how to remove cards that aren't currently shown
 let openCards = [];
 function addCard(card) {
-  openCards.push(card);
+  if (card.classList.contains('show')) {
+    openCards.push(card);
+  }
+}
+
+// if list has another card, check to see if they matched
+function checkForMatch() {
+  if (openCards.length === 2) {
+    if (openCards[0].firstElementChild.classList[1] === openCards[1].firstElementChild.classList[1]) {
+      console.log("It's a match!")
+    } else {
+      console.log("It's not a match! Keep looking.")
+    }
+  }
 }
 
 // on click, show card, add card to list
