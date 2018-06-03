@@ -4,6 +4,7 @@ let moves = 0;
 const displayMoves = document.querySelector('.moves');
 const star = '<li><i class="fa fa-star"></i></li>';
 let stars = document.querySelectorAll('.fa-star');
+let timer;
 /*
  * Create a list that holds all of your cards
  */
@@ -50,6 +51,8 @@ function createDeck() {
     item.classList.remove('match');
   }
   // reset timer and moves and stars
+  timer = null;
+  document.getElementById("seconds").innerText = '0';
   moves = 0;
   displayMoves.textContent = `${moves}`;
   document.querySelector('.stars').innerHTML = star.repeat(3);
@@ -71,12 +74,12 @@ restartButton.addEventListener('click', function(event) {
  //      + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  //      + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  //      + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- // TODO:     + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ //      + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  // currently just using window.alert; so basic
  //          maybe create a modal, or dialog html element
- // TODO:     timer must start when first card is clicked, and stop when all cards are matched, and be displayed in message with final score, and start over when reset button is clicked    timer: try setInterval()
+ //      timer must start when first card is clicked, and stop when all cards are matched, and be displayed in message with final score, and start over when reset button is clicked    timer: try setInterval()
 //  deal with stars, like 3 stars for 20 moves or less, 2 stars for 21-25, and 1 star for 26+ moves
-// TODO: new problem - with restart, moves need to go back to 0, stars need to start at 3 showing, and cards need to be hidden(remove match class)
+//  new problem - with restart, moves need to go back to 0, stars need to start at 3 showing, and cards need to be hidden(remove match class)
  */
 
 
@@ -124,6 +127,24 @@ function displayStars() {
   stars = document.querySelectorAll('.fa-star');
 }
 
+// timer
+
+
+function startTimer() {
+  let seconds = 0;
+  // check to see if timer already exists and prevent timer from restarting with every click
+  if (!timer) {
+    timer = setInterval(function() {
+	  seconds ++;
+	  document.getElementById("seconds").innerText = seconds % 60;
+    document.getElementById("minutes").innerText = parseInt(seconds / 60);
+    }, 1000);
+  }
+}
+
+function stopTimer() {
+  clearInterval(timer);
+}
 
 // when game is over
 function gameOver(array) {
@@ -142,6 +163,7 @@ cards.forEach(function(card) {
     if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
       addCard(card);
       showCard(card);
+      startTimer();
 
       if (openCards.length >= 2) {
         // Check if cards match
@@ -164,8 +186,10 @@ cards.forEach(function(card) {
 
       if (gameOver(arrayOfCards)) {
         displayStars();
+        stopTimer();
+        let gameTime = document.getElementById("seconds").innerText;
         setTimeout(function() {
-          window.alert(`Congratulations!! You won in only ${moves} moves, so you get ${stars.length} star(s)!!`);
+          window.alert(`Congratulations!! You won with only ${moves} moves in ${gameTime} seconds, so you get ${stars.length} star(s)!!`);
         }, 500);
       }
     }
