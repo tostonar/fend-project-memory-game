@@ -5,6 +5,7 @@ const displayMoves = document.querySelector('.moves');
 const star = '<li><i class="fa fa-star"></i></li>';
 let stars = document.querySelectorAll('.fa-star');
 let timer;
+
 /*
  * Create a list that holds all of your cards
  */
@@ -55,7 +56,10 @@ function createDeck() {
   document.getElementById("seconds").innerText = '0';
   moves = 0;
   displayMoves.textContent = `${moves}`;
-  document.querySelector('.stars').innerHTML = star.repeat(3);
+  // document.querySelector('.stars').innerHTML = star.repeat(3);
+  stars.forEach(function(star) {
+    star.classList.remove('hidden');
+  });
 }
 
 // add createDeck() to restart button
@@ -114,17 +118,17 @@ function increaseCount() {
 // stars
 
 function displayStars() {
-  stars = document.querySelectorAll('.fa-star');
-  if (moves > 20) {
+  // stars = document.querySelectorAll('.fa-star');
+  if (moves > 15) {
     // show 1 star
-    stars[0].remove();
-    stars[1].remove();
-  } else if (moves > 14 && moves < 19) {
+    // stars[0].classList.add('hidden');
+    stars[1].classList.add('hidden');
+  } else if (moves > 10 && moves < 16) {
     // show 2 stars
-    stars[0].remove();
+    stars[2].classList.add('hidden');
 
   }
-  stars = document.querySelectorAll('.fa-star');
+  // stars = document.querySelectorAll('.fa-star');
 }
 
 // timer
@@ -182,15 +186,17 @@ cards.forEach(function(card) {
           }, 1000);
         }
         increaseCount();
+        displayStars();
       }
 
 
       if (gameOver(arrayOfCards)) {
-        displayStars();
+        // displayStars();
+        let shownStars = 3 - document.querySelectorAll('.hidden').length;
         stopTimer();
         let gameTime = document.getElementById("seconds").innerText;
         setTimeout(function() {
-          window.alert(`Congratulations!! You won with only ${moves} moves in ${gameTime} seconds, so you get ${stars.length} star(s)!! Would you like to play again?`);
+          window.alert(`Congratulations!! You won with only ${moves} moves in ${gameTime} seconds, so you get ${shownStars} star(s)!! Would you like to play again?`);
         }, 500);
       }
     }
