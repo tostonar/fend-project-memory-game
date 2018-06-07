@@ -181,8 +181,9 @@ cards.forEach(function(card) {
             openCards = [];
           }, 1000);
         }
+        increaseCount();
       }
-      increaseCount();
+
 
       if (gameOver(arrayOfCards)) {
         displayStars();
