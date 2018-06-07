@@ -189,7 +189,7 @@ cards.forEach(function(card) {
         stopTimer();
         let gameTime = document.getElementById("seconds").innerText;
         setTimeout(function() {
-          window.alert(`Congratulations!! You won with only ${moves} moves in ${gameTime} seconds, so you get ${stars.length} star(s)!!`);
+          window.alert(`Congratulations!! You won with only ${moves} moves in ${gameTime} seconds, so you get ${stars.length} star(s)!! Would you like to play again?`);
         }, 500);
       }
     }
