@@ -115,11 +115,11 @@ function increaseCount() {
 
 function displayStars() {
   stars = document.querySelectorAll('.fa-star');
-  if (moves > 25) {
+  if (moves > 20) {
     // show 1 star
     stars[0].remove();
     stars[1].remove();
-  } else if (moves > 20 && moves < 26) {
+  } else if (moves > 14 && moves < 19) {
     // show 2 stars
     stars[0].remove();
 
