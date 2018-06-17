@@ -4,7 +4,7 @@ let moves = 0;
 const displayMoves = document.querySelector('.moves');
 const star = '<li><i class="fa fa-star"></i></li>';
 let stars = document.querySelectorAll('.fa-star');
-let timer;
+
 
 /*
  * Create a list that holds all of your cards
@@ -53,7 +53,7 @@ function createDeck() {
   }
   // reset timer and moves and stars
   timer = null;
-  document.getElementById("seconds").innerText = '0';
+  // document.getElementById("seconds").innerText = '0';
   moves = 0;
   displayMoves.textContent = `${moves}`;
   // document.querySelector('.stars').innerHTML = star.repeat(3);
@@ -67,7 +67,10 @@ const restartButton = document.querySelector('.restart > i');
 restartButton.addEventListener('click', function(event) {
   if (event.target.nodeName === 'I') {
     createDeck();
-  }
+  };
+  seconds = 0;
+  document.getElementById("seconds").innerText = seconds % 60;
+  document.getElementById("minutes").innerText = parseInt(seconds / 60);
 });
 
 /*
@@ -133,9 +136,11 @@ function displayStars() {
 
 // timer
 
+let seconds = 0;
+let timer;
 
 function startTimer() {
-  let seconds = 0;
+  // let seconds = 0;
   // check to see if timer already exists and prevent timer from restarting with every click
   if (!timer) {
     timer = setInterval(function() {
@@ -148,6 +153,10 @@ function startTimer() {
 
 function stopTimer() {
   clearInterval(timer);
+  // seconds = 0;
+  document.getElementById("seconds").innerText = seconds % 60;
+  document.getElementById("minutes").innerText = parseInt(seconds / 60);
+
 }
 
 // when game is over
@@ -196,8 +205,9 @@ cards.forEach(function(card) {
         stopTimer();
         let gameTime = document.getElementById("seconds").innerText;
         setTimeout(function() {
-          window.alert(`Congratulations!! You won with only ${moves} moves in ${gameTime} seconds, so you get ${shownStars} star(s)!! Would you like to play again?`);
+          window.alert(`Congratulations!! You won with only ${moves} moves in ${seconds} seconds, so you get ${shownStars} star(s)!! Would you like to play again?`);
         }, 500);
+
       }
     }
   });
